@@ -6,17 +6,10 @@ steps {
 sh 'mvn -B -DskipTests clean package'
 }
 }
-stage('pmd') {
+stage('K8s') {
 steps {
-sh 'mvn pmd:pmd'
+sh 'kubectl set image deployments/hello-node container-name=image-id'
 }
-}
-}
-post {
-always {
-archiveArtifacts artifacts: '**/target/site/**', fingerprint: true
-archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
-archiveArtifacts artifacts: '**/target/**/*.war', fingerprint: true
 }
 }
 }
